@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import Icon from '@/components/ui/icon';
 
-type Screen = 'home' | 'how-it-works' | 'examples' | 'about' | 'quiz' | 'contacts';
+type Screen = 'home' | 'how-it-works' | 'examples' | 'about' | 'quiz' | 'contacts' | 'blog' | 'reviews';
 
 const Index = () => {
   const [currentScreen, setCurrentScreen] = useState<Screen>('home');
@@ -36,13 +36,17 @@ const Index = () => {
         return <QuizScreen onNavigate={navigateTo} quizStep={quizStep} setQuizStep={setQuizStep} quizData={quizData} setQuizData={setQuizData} />;
       case 'contacts':
         return <ContactsScreen onNavigate={navigateTo} />;
+      case 'blog':
+        return <BlogScreen onNavigate={navigateTo} />;
+      case 'reviews':
+        return <ReviewsScreen onNavigate={navigateTo} />;
       default:
         return <HomeScreen onNavigate={navigateTo} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-secondary to-accent animate-fade-in">
+    <div className="min-h-screen bg-gradient-to-br from-background via-accent/20 to-secondary/30 animate-fade-in">
       {renderScreen()}
     </div>
   );
@@ -62,6 +66,12 @@ const HomeScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void }) =>
           </button>
           <button onClick={() => onNavigate('examples')} className="text-sm font-medium hover:text-primary transition-colors">
             Примеры
+          </button>
+          <button onClick={() => onNavigate('blog')} className="text-sm font-medium hover:text-primary transition-colors">
+            Блог
+          </button>
+          <button onClick={() => onNavigate('reviews')} className="text-sm font-medium hover:text-primary transition-colors">
+            Отзывы
           </button>
           <button onClick={() => onNavigate('about')} className="text-sm font-medium hover:text-primary transition-colors">
             О нас
@@ -502,6 +512,178 @@ const QuizScreen = ({
           </Button>
         </div>
       </Card>
+    </div>
+  );
+};
+
+const BlogScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void }) => {
+  const articles = [
+    {
+      title: '10 идей подарков для коллег до 3000₽',
+      excerpt: 'Практичные и оригинальные варианты, которые точно оценят на работе',
+      date: '20 ноября 2024',
+      image: 'https://cdn.poehali.dev/projects/b27995d8-a5e3-4729-ba95-c4911953e8cc/files/cdb88d35-245e-4905-86b9-411b3c2ccb26.jpg',
+      category: 'Советы'
+    },
+    {
+      title: 'Как выбрать подарок человеку, у которого всё есть',
+      excerpt: 'Необычные решения для самых требовательных получателей',
+      date: '18 ноября 2024',
+      image: 'https://cdn.poehali.dev/projects/b27995d8-a5e3-4729-ba95-c4911953e8cc/files/c59134fa-12ba-4add-aa86-d49f43159dcb.jpg',
+      category: 'Идеи'
+    },
+    {
+      title: 'Тренды подарков 2024: что дарить в новом году',
+      excerpt: 'Самые популярные категории подарков по данным нашего ИИ',
+      date: '15 ноября 2024',
+      image: 'https://cdn.poehali.dev/projects/b27995d8-a5e3-4729-ba95-c4911953e8cc/files/4158d4a8-366b-421e-a4c9-42369f70c212.jpg',
+      category: 'Тренды'
+    },
+    {
+      title: 'Упаковка подарков: 5 способов удивить',
+      excerpt: 'Креативные идеи оформления, которые сделают подарок особенным',
+      date: '12 ноября 2024',
+      image: 'https://cdn.poehali.dev/projects/b27995d8-a5e3-4729-ba95-c4911953e8cc/files/2449d935-1ed9-473b-bb7f-68667bda2c6d.jpg',
+      category: 'Лайфхаки'
+    }
+  ];
+
+  return (
+    <div className="container max-w-6xl mx-auto px-6 py-12 animate-fade-in">
+      <Button onClick={() => onNavigate('home')} variant="ghost" className="mb-8">
+        <Icon name="ArrowLeft" size={20} className="mr-2" />
+        Назад
+      </Button>
+
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold mb-4">Блог о подарках</h2>
+        <p className="text-xl text-muted-foreground">Советы, идеи и тренды от экспертов DreamGift AI</p>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        {articles.map((article, index) => (
+          <Card key={index} className="overflow-hidden rounded-3xl hover:shadow-2xl transition-all hover:scale-105 cursor-pointer">
+            <div className="relative h-48 overflow-hidden">
+              <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+              <div className="absolute top-4 left-4">
+                <span className="bg-secondary text-secondary-foreground px-4 py-1 rounded-full text-sm font-medium">
+                  {article.category}
+                </span>
+              </div>
+            </div>
+            <div className="p-6">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                <Icon name="Calendar" size={16} />
+                <span>{article.date}</span>
+              </div>
+              <h3 className="text-xl font-bold mb-2">{article.title}</h3>
+              <p className="text-muted-foreground mb-4">{article.excerpt}</p>
+              <Button variant="ghost" className="p-0 h-auto font-medium text-primary hover:text-primary/80">
+                Читать далее
+                <Icon name="ArrowRight" size={16} className="ml-2" />
+              </Button>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const ReviewsScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void }) => {
+  const reviews = [
+    {
+      name: 'Анна Петрова',
+      rating: 5,
+      text: 'Искала подарок маме на день рождения. ИИ предложил идеальный вариант — набор для рукоделия. Мама в восторге! Спасибо за сервис!',
+      date: '2 дня назад',
+      avatar: '👩'
+    },
+    {
+      name: 'Михаил Соколов',
+      rating: 5,
+      text: 'Нужен был срочно подарок коллеге. За минуту получил список отличных идей в рамках бюджета. Очень удобно!',
+      date: '5 дней назад',
+      avatar: '👨'
+    },
+    {
+      name: 'Елена Волкова',
+      rating: 5,
+      text: 'Использую сервис уже третий раз. Все подарки были встречены с огромной радостью. Рекомендую всем, кто не знает что подарить!',
+      date: '1 неделю назад',
+      avatar: '👩‍💼'
+    },
+    {
+      name: 'Дмитрий Козлов',
+      rating: 5,
+      text: 'Подарил жене на годовщину то, что посоветовал ИИ. Сказала, что это лучший подарок за последние годы. Буду пользоваться дальше!',
+      date: '2 недели назад',
+      avatar: '👨‍💻'
+    },
+    {
+      name: 'Ольга Смирнова',
+      rating: 5,
+      text: 'Очень помог с выбором подарка племяннику-подростку. Сама бы никогда не догадалась что ему подарить, а ИИ угадал с первого раза!',
+      date: '3 недели назад',
+      avatar: '👩‍🦰'
+    },
+    {
+      name: 'Александр Иванов',
+      rating: 5,
+      text: 'Быстро, удобно и действительно работает. Теперь не трачу часы на поиски подарков в интернете. Все за пару минут!',
+      date: '1 месяц назад',
+      avatar: '👨‍🎓'
+    }
+  ];
+
+  return (
+    <div className="container max-w-6xl mx-auto px-6 py-12 animate-fade-in">
+      <Button onClick={() => onNavigate('home')} variant="ghost" className="mb-8">
+        <Icon name="ArrowLeft" size={20} className="mr-2" />
+        Назад
+      </Button>
+
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold mb-4">Отзывы наших клиентов</h2>
+        <p className="text-xl text-muted-foreground">12 000+ довольных пользователей</p>
+      </div>
+
+      <div className="mb-12 text-center">
+        <div className="flex justify-center gap-2 mb-4">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <Icon key={star} name="Star" size={32} className="text-yellow-500 fill-yellow-500" />
+          ))}
+        </div>
+        <p className="text-3xl font-bold">4.9 из 5</p>
+        <p className="text-muted-foreground">На основе 2,847 отзывов</p>
+      </div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {reviews.map((review, index) => (
+          <Card key={index} className="p-6 rounded-3xl hover:shadow-xl transition-shadow">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="text-4xl">{review.avatar}</div>
+              <div>
+                <h4 className="font-bold">{review.name}</h4>
+                <div className="flex gap-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Icon key={star} name="Star" size={14} className="text-yellow-500 fill-yellow-500" />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <p className="text-muted-foreground mb-4">{review.text}</p>
+            <p className="text-sm text-muted-foreground">{review.date}</p>
+          </Card>
+        ))}
+      </div>
+
+      <div className="text-center mt-12">
+        <Button onClick={() => onNavigate('quiz')} size="lg" className="rounded-full px-8">
+          Попробовать сервис
+          <Icon name="Sparkles" size={20} className="ml-2" />
+        </Button>
+      </div>
     </div>
   );
 };
