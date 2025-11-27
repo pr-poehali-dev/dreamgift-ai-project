@@ -132,7 +132,7 @@ const HomeScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void }) =>
         </Card>
       </div>
 
-      <div className="text-center space-y-4">
+      <div className="text-center space-y-8 mb-20">
         <div className="flex justify-center gap-12 text-center">
           <div>
             <div className="text-4xl font-bold text-primary">12K+</div>
@@ -148,6 +148,43 @@ const HomeScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void }) =>
           </div>
         </div>
       </div>
+
+      <div className="mb-20">
+        <h3 className="text-3xl font-bold text-center mb-12">Популярные категории</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { icon: 'Laptop', label: 'Для работы', color: 'bg-accent' },
+            { icon: 'Dumbbell', label: 'Для спорта', color: 'bg-secondary' },
+            { icon: 'Book', label: 'Для хобби', color: 'bg-primary' },
+            { icon: 'Home', label: 'Для дома', color: 'bg-accent' },
+            { icon: 'Utensils', label: 'Гурманам', color: 'bg-secondary' },
+            { icon: 'Palette', label: 'Творчество', color: 'bg-primary' },
+            { icon: 'Baby', label: 'Для детей', color: 'bg-accent' },
+            { icon: 'Shirt', label: 'Мода', color: 'bg-secondary' }
+          ].map((category, index) => (
+            <Card key={index} className="p-6 rounded-2xl hover:scale-105 transition-transform cursor-pointer hover:shadow-lg">
+              <div className={`w-12 h-12 ${category.color}/20 rounded-xl flex items-center justify-center mx-auto mb-3`}>
+                <Icon name={category.icon as any} size={24} className="text-primary" />
+              </div>
+              <p className="text-center font-medium text-sm">{category.label}</p>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <Card className="p-12 rounded-3xl bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 mb-20">
+        <div className="text-center max-w-2xl mx-auto">
+          <Icon name="Sparkles" size={48} className="text-primary mx-auto mb-4" />
+          <h3 className="text-3xl font-bold mb-4">Попробуйте бесплатно</h3>
+          <p className="text-lg text-muted-foreground mb-6">
+            Первая подборка подарков — на нас! Убедитесь сами, как легко найти идеальный подарок с помощью ИИ.
+          </p>
+          <Button onClick={() => onNavigate('quiz')} size="lg" className="rounded-full px-8">
+            Начать подбор
+            <Icon name="ArrowRight" size={20} className="ml-2" />
+          </Button>
+        </div>
+      </Card>
     </div>
   );
 };
@@ -160,9 +197,12 @@ const HowItWorksScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void
         Назад
       </Button>
 
-      <h2 className="text-4xl font-bold text-center mb-12">Как это работает</h2>
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold mb-4">Как это работает</h2>
+        <p className="text-xl text-muted-foreground">Три простых шага до идеального подарка</p>
+      </div>
 
-      <div className="space-y-12">
+      <div className="space-y-12 mb-12">
         <div className="flex gap-8 items-center">
           <div className="flex-shrink-0 w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-2xl font-bold">
             1
@@ -199,6 +239,23 @@ const HowItWorksScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void
           Начать подбор
           <Icon name="ArrowRight" size={20} className="ml-2" />
         </Button>
+      </div>
+
+      <div className="mt-16 grid md:grid-cols-2 gap-8">
+        <Card className="p-8 rounded-3xl bg-secondary/10">
+          <Icon name="TrendingUp" size={32} className="text-secondary mb-4" />
+          <h3 className="text-xl font-bold mb-2">Машинное обучение</h3>
+          <p className="text-muted-foreground">
+            Наш ИИ обучен на тысячах успешных подборок и постоянно совершенствуется
+          </p>
+        </Card>
+        <Card className="p-8 rounded-3xl bg-accent/10">
+          <Icon name="Database" size={32} className="text-accent mb-4" />
+          <h3 className="text-xl font-bold mb-2">База из 50 000+ подарков</h3>
+          <p className="text-muted-foreground">
+            Постоянно обновляемый каталог товаров из проверенных магазинов
+          </p>
+        </Card>
       </div>
     </div>
   );
@@ -239,9 +296,12 @@ const ExamplesScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void }
         Назад
       </Button>
 
-      <h2 className="text-4xl font-bold text-center mb-12">Примеры подборок</h2>
+      <div className="text-center mb-12">
+        <h2 className="text-4xl font-bold mb-4">Примеры подборок</h2>
+        <p className="text-xl text-muted-foreground">Реальные результаты наших пользователей</p>
+      </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-6 mb-12">
         {examples.map((example, index) => (
           <Card key={index} className="p-6 rounded-2xl hover:shadow-xl transition-shadow">
             <div className="flex items-start gap-4">
@@ -257,6 +317,23 @@ const ExamplesScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void }
           </Card>
         ))}
       </div>
+
+      <Card className="p-8 rounded-3xl bg-gradient-to-br from-primary/10 to-accent/10">
+        <div className="grid md:grid-cols-3 gap-8 text-center">
+          <div>
+            <div className="text-3xl font-bold text-primary mb-2">89%</div>
+            <p className="text-sm text-muted-foreground">Получателям понравился подарок</p>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-secondary mb-2">4.7 мин</div>
+            <p className="text-sm text-muted-foreground">Среднее время подбора</p>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-accent mb-2">156</div>
+            <p className="text-sm text-muted-foreground">Категорий подарков</p>
+          </div>
+        </div>
+      </Card>
 
       <div className="text-center mt-12">
         <Button onClick={() => onNavigate('quiz')} size="lg" className="rounded-full px-8">
@@ -300,7 +377,7 @@ const AboutScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void }) =
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-3 gap-6 mb-12">
         <Card className="p-6 rounded-2xl text-center">
           <Icon name="Target" size={32} className="text-primary mx-auto mb-3" />
           <h4 className="font-bold mb-2">Точность</h4>
@@ -317,6 +394,40 @@ const AboutScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void }) =
           <p className="text-sm text-muted-foreground">Всегда готовы помочь</p>
         </Card>
       </div>
+
+      <div className="mb-12">
+        <h3 className="text-2xl font-bold text-center mb-8">Наша команда</h3>
+        <div className="grid md:grid-cols-4 gap-6">
+          {[
+            { name: 'Алексей Иванов', role: 'CEO & Founder', emoji: '👨‍💼' },
+            { name: 'Мария Петрова', role: 'Head of AI', emoji: '👩‍💻' },
+            { name: 'Дмитрий Козлов', role: 'Product Designer', emoji: '👨‍🎨' },
+            { name: 'Анна Смирнова', role: 'Customer Success', emoji: '👩‍🦰' }
+          ].map((member, index) => (
+            <Card key={index} className="p-6 rounded-2xl text-center hover:scale-105 transition-transform">
+              <div className="text-5xl mb-3">{member.emoji}</div>
+              <h4 className="font-bold mb-1">{member.name}</h4>
+              <p className="text-sm text-muted-foreground">{member.role}</p>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <Card className="p-8 rounded-3xl bg-gradient-to-br from-secondary/10 to-accent/10">
+        <div className="text-center max-w-2xl mx-auto">
+          <h3 className="text-2xl font-bold mb-4">Партнёры</h3>
+          <p className="text-muted-foreground mb-6">
+            Мы сотрудничаем с ведущими онлайн-магазинами России для предоставления лучших предложений
+          </p>
+          <div className="flex justify-center gap-8 flex-wrap">
+            {['Ozon', 'Wildberries', 'Яндекс.Маркет', 'СберМегаМаркет', 'Lamoda'].map((partner, index) => (
+              <div key={index} className="px-6 py-3 bg-white rounded-xl font-bold text-foreground shadow-md">
+                {partner}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Card>
     </div>
   );
 };
@@ -488,6 +599,18 @@ const QuizScreen = ({
                 className="rounded-2xl h-12"
               />
             </div>
+
+            <div className="mt-6 p-4 bg-accent/10 rounded-2xl">
+              <div className="flex items-start gap-3">
+                <Icon name="Lightbulb" size={20} className="text-accent mt-1" />
+                <div>
+                  <p className="font-medium mb-1">Подсказка</p>
+                  <p className="text-sm text-muted-foreground">
+                    Чем подробнее опишете интересы, тем точнее будет подборка. Укажите любимые занятия, стиль жизни, мечты.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
@@ -560,7 +683,19 @@ const BlogScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void }) =>
         <p className="text-xl text-muted-foreground">Советы, идеи и тренды от экспертов DreamGift AI</p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="flex gap-3 justify-center mb-8 flex-wrap">
+        {['Все', 'Советы', 'Идеи', 'Тренды', 'Лайфхаки'].map((filter, index) => (
+          <Button
+            key={index}
+            variant={index === 0 ? 'default' : 'outline'}
+            className="rounded-full"
+          >
+            {filter}
+          </Button>
+        ))}
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8 mb-12">
         {articles.map((article, index) => (
           <Card key={index} className="overflow-hidden rounded-3xl hover:shadow-2xl transition-all hover:scale-105 cursor-pointer">
             <div className="relative h-48 overflow-hidden">
@@ -586,6 +721,20 @@ const BlogScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void }) =>
           </Card>
         ))}
       </div>
+
+      <Card className="p-8 rounded-3xl bg-gradient-to-br from-primary/10 to-secondary/10">
+        <div className="text-center">
+          <Icon name="BookOpen" size={48} className="text-primary mx-auto mb-4" />
+          <h3 className="text-2xl font-bold mb-2">Хотите больше полезных статей?</h3>
+          <p className="text-muted-foreground mb-6">
+            Подпишитесь на нашу рассылку и получайте свежие идеи подарков каждую неделю
+          </p>
+          <div className="flex gap-3 max-w-md mx-auto">
+            <Input placeholder="Ваш email" className="rounded-full" />
+            <Button className="rounded-full">Подписаться</Button>
+          </div>
+        </div>
+      </Card>
     </div>
   );
 };
@@ -677,6 +826,34 @@ const ReviewsScreen = ({ onNavigate }: { onNavigate: (screen: Screen) => void })
           </Card>
         ))}
       </div>
+
+      <div className="mt-12 grid md:grid-cols-3 gap-6 mb-12">
+        <Card className="p-6 rounded-2xl text-center bg-accent/10">
+          <div className="text-3xl font-bold text-accent mb-2">93%</div>
+          <p className="text-sm text-muted-foreground">Рекомендуют друзьям</p>
+        </Card>
+        <Card className="p-6 rounded-2xl text-center bg-secondary/10">
+          <div className="text-3xl font-bold text-secondary mb-2">4.2 тыс</div>
+          <p className="text-sm text-muted-foreground">Отзывов за месяц</p>
+        </Card>
+        <Card className="p-6 rounded-2xl text-center bg-primary/10">
+          <div className="text-3xl font-bold text-primary mb-2">24/7</div>
+          <p className="text-sm text-muted-foreground">Работаем для вас</p>
+        </Card>
+      </div>
+
+      <Card className="p-8 rounded-3xl bg-gradient-to-br from-secondary/10 to-accent/10">
+        <div className="text-center">
+          <h3 className="text-2xl font-bold mb-4">Оставьте свой отзыв</h3>
+          <p className="text-muted-foreground mb-6">
+            Поделитесь опытом использования DreamGift AI
+          </p>
+          <Button size="lg" className="rounded-full">
+            Написать отзыв
+            <Icon name="PenLine" size={20} className="ml-2" />
+          </Button>
+        </div>
+      </Card>
 
       <div className="text-center mt-12">
         <Button onClick={() => onNavigate('quiz')} size="lg" className="rounded-full px-8">
